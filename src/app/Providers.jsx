@@ -6,7 +6,11 @@ import { ThemeProvider } from 'next-themes'
 
 const Providers = ({ children }) => {
     return (
-        <ThemeProvider>{children}</ThemeProvider>
+        //! If your Next.js app uses a class to style the page based on the theme, change the attribute prop to class: attribute="class"
+        //? enableSystem = true: Whether to switch between dark and light based on prefers-color-scheme
+        <ThemeProvider enableSystem={true} attribute="class">
+            {children}
+        </ThemeProvider>
     )
 }
 

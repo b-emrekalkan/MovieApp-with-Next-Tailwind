@@ -182,6 +182,13 @@ const Providers = ({ children }) => {
 export default Providers
 ```
 
+## ♦️ In tailwind.config.js, set the dark mode property to class:
+
+```javascript
+  plugins: [],
+  darkMode: 'class'
+```
+
 
 
 
