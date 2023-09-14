@@ -1,6 +1,7 @@
 import React from 'react'
 import "./globals.css"
 import Header from '@/components/Header'
+import Providers from './Providers'
 
 const Layout = ({ children }) => {
   return (
@@ -8,8 +9,10 @@ const Layout = ({ children }) => {
       <title>MovieApp</title>
 
       <body>
-        <Header />
-        {children}
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   )
