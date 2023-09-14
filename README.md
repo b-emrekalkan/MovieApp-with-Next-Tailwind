@@ -2,6 +2,65 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+## 🌐 [Create a Next.js project](https://tailwindcss.com/docs/guides/nextjs) with this command and direct this folder
+
+```bash
+npx create-next-app@latest movieapp
+cd movieapp/
+```
+
+## 🖥️ Install Tailwind CSS
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+## ♦️ Since the first rendered page is "page.js", edit this page and try to use Tailwind’s utility classes to style your content.
+
+```javascript
+import React from 'react'
+
+const Page = () => {
+  return (
+    <div>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
+    </div>
+  )
+}
+
+export default Page
+```
+
+## ♦️ Edit "layout.js", where we do the wrapping and host the static files
+
+```javascript
+import React from 'react'
+import "./globals.css"
+
+const Layout = ({ children }) => {
+  return (
+    <html lang='en'>
+      <title>MovieApp</title>
+
+      <body>
+        {children}
+      </body>
+    </html>
+  )
+}
+
+export default Layout
+```
+
+## 📂 
+
+```javascript
+
+```
+
 First, run the development server:
 
 ```bash
