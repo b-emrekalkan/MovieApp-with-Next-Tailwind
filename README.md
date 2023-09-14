@@ -55,11 +55,39 @@ const Layout = ({ children }) => {
 export default Layout
 ```
 
-## 📂 
+## 🖥️ To use React-Icons, install
+
+```bash
+npm install react-icons
+```
+
+## 📂 Create "components" folder under "src" and start with "Header.jsx"
 
 ```javascript
 
 ```
+
+## ♦️ Since I want to see the "header" on every page, I need to import it just below the body tag in "layout.jsx".
+
+```javascript
+import Header from '@/components/Header'
+
+const Layout = ({ children }) => {
+  return (
+    <html lang='en'>
+      <title>MovieApp</title>
+      <body>
+      // 👇👇👇👇👇
+        <Header />
+        {children}
+      </body>
+    </html>
+  )
+}
+
+export default Layout
+```
+
 
 First, run the development server:
 
