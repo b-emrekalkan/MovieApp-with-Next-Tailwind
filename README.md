@@ -150,17 +150,34 @@ npm i next-themes
 ## 📂 Create "ThemeComp.jsx" under components folder and import it in "Header.jsx" between -input- and -menu- field.
 
 ```javascript
-import React from 'react'
-import { MdDarkMode } from "react-icons/md"
+"use client"
+import { useTheme } from 'next-themes'
+import React, { useEffect, useState } from 'react'
+import { MdDarkMode, MdLightMode } from "react-icons/md"
+
 
 const ThemeComp = () => {
+    const [mounted, setMounted] = useState(false)
+    const { systemTheme, theme, setTheme } = useTheme()
+
+    // useEffect only runs on the client, so now we can safely show the UI
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    const themeMode = theme === "system" ? systemTheme : theme
     return (
         <div>
-            <MdDarkMode size={25} className='cursor-pointer' />
+            {
+                mounted && (
+                    themeMode === "dark" ?
+                        <MdLightMode onClick={() => setTheme('light')} className="cursor-pointer" size={25} /> :
+                        <MdDarkMode onClick={() => setTheme('dark')} className="cursor-pointer" size={25} />
+                )
+            }
         </div>
     )
 }
-
 export default ThemeComp
 ```
 
@@ -187,4 +204,10 @@ export default Providers
 ```javascript
   plugins: [],
   darkMode: 'class'
+```
+
+## 🚩 Create `Tabs.jsx` component under `/app/components` folder and import it in `/app/layout.jsx` file.
+
+```javascript
+
 ```
