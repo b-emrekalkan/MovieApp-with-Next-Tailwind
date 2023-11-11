@@ -20,6 +20,10 @@ const Tabs = () => {
         {
             name: "Upcoming",
             url: "upcoming"
+        },
+        {
+            name: "Now Playing",
+            url: "now_playing"
         }
     ]
     return (
