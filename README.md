@@ -249,3 +249,53 @@ export default Tabs
 
 ## 🚩 Let's fetch the data on the homepage, in `app/page.jsx`.
 
+```javascript
+import Movies from '@/components/Movies';
+import React from 'react'
+
+const Page = async ({ searchParams }) => {
+
+  //! 👇 If there is a genre parameter from searchParams, I want it to bring the films belonging to it, if not, I want it to bring the films in the "trending/all/day" category.
+
+  const res = await fetch(`https://api.themoviedb.org/3/${searchParams.genre ? "movie/" + searchParams.genre : "trending/all/day"}?api_key=b137f56f6405b0af4522d9412326d93d&language=en-US&page=1`, { next: { revalidate: 10000 } })
+
+
+  const data = await res.json();
+
+  return (
+    <div className='flex items-center justify-center flex-wrap gap-3'>
+      {
+        data?.results?.map((dt, i) => (
+          <Movies key={i} dt={dt} />
+        ))
+      }
+    </div>
+  )
+}
+
+export default Page
+```
+
+## 🚩 `Movies.jsx` component
+
+```javascript
+
+```
+
+## ‼️ Edit `next.config.js` file when `RunTimeError` occur about images
+
+```javascript
+//** @type {import('next').NextConfig} */
+
+const NextConfig = {
+    experimental: {
+        appDir: true,
+    },
+    images: {
+        domains: ["image.tmdb.org"]
+    }
+
+}
+
+module.exports = NextConfig;
+```
