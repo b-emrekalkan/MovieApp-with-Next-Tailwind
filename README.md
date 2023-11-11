@@ -258,10 +258,11 @@ import Movies from '@/components/Movies';
 import React from 'react'
 
 const Page = async ({ searchParams }) => {
+  const apiKey = process.env.TMDB_API_KEY;
 
   //! 👇 If there is a genre parameter from searchParams, I want it to bring the films belonging to it, if not, I want it to bring the films in the "trending/all/day" category.
 
-  const res = await fetch(`https://api.themoviedb.org/3/${searchParams.genre ? "movie/" + searchParams.genre : "trending/all/day"}?api_key=b137f56f6405b0af4522d9412326d93d&language=en-US&page=1`, { next: { revalidate: 10000 } })
+  const res = await fetch(`https://api.themoviedb.org/3/${searchParams.genre ? "movie/" + searchParams.genre : "trending/all/day"}?api_key=${apiKey}&language=en-US&page=1`, { next: { revalidate: 10000 } })
 
 
   const data = await res.json();
@@ -283,14 +284,37 @@ export default Page
 ## 🚩 `Movies.jsx` component
 
 ```javascript
+"use client"
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React from 'react'
 
+const Movies = ({ dt }) => {
+    const router = useRouter()
+    console.log(dt);
+    return (
+        <div onClick={() => router.push(`/movie/${dt?.id}`)} className='w-[450px] relative cursor-pointer'>
+            {/* 👇 We get Runtime Error in this section. To solve this, we need to edit the next.config.js file. */}
+            <Image width={450} height={300} src={`https://image.tmdb.org/t/p/original/${dt?.backdrop_path || dt?.poster_path}`} />
+            <div className='absolute bottom-0 p-2 m-1 w-full h-full flex flex-col justify-end opacity-0 hover:opacity-80 transition-opacity '>
+                <div className='text-xl font-bold'>{dt?.title || dt?.original_name || dt?.original_title}</div>
+                <div>
+                    {(dt?.first_air_date && new Date(dt.first_air_date).getFullYear()) ||
+                        (dt?.release_date && new Date(dt.release_date).getFullYear())} - {(dt?.vote_average && dt.vote_average.toFixed(2))}
+                </div>
+
+            </div>
+        </div>
+    )
+}
+
+export default Movies
 ```
 
 ## ❗ Edit `next.config.js` file when `RunTimeError` occur about images
 
 ```javascript
 //** @type {import('next').NextConfig} */
-
 const NextConfig = {
     experimental: {
         appDir: true,
@@ -298,8 +322,44 @@ const NextConfig = {
     images: {
         domains: ["image.tmdb.org"]
     }
+}
+module.exports = NextConfig;
+```
 
+## 🚩 Create `movie` folder under `app`, add `[id]` folder, add `page.jsx` in it.
+
+```javascript
+
+```
+
+## 🚩 To Search Movies customize `Header.jsx`
+
+```javascript
+"use client"
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+//...
+const Header = () => {
+    const [keyword, setKeyword] = useState("");
+    const router = useRouter();
+    //...
+    const searchFunc = (e) => {
+        if (e.key === "Enter" && keyword.length > 3) {
+            router.push(`search/${keyword}`)
+        }
+    }
+    return (
+           //....
+                <input onKeyDown={searchFunc} onChange={e => setKeyword(e.target.value)} placeholder='Search a movie...' className='outline-none flex-1 bg-transparent' type="text" />
+            //...
+    )
 }
 
-module.exports = NextConfig;
+export default Header
+```
+
+## 🚩 To route the page `search/...` page; create `seacrh` folder under app, add `[keyword]` folder and `page.jsx` file in it.
+
+```javascript
+
 ```
