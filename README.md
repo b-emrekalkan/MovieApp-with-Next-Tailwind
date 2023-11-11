@@ -215,6 +215,8 @@ import React from 'react'
 import { useSearchParams } from 'next/navigation'
 
 const Tabs = () => {
+     //? The useSearchParams hook allows you to easily read and modify URL parameters in the browser.
+    //! The useSearchParams hook is used here to read URL parameters from the browser, allowing the user to interact with tabs that provide access to different types of content.
     const searchParams = useSearchParams()
     const genre = searchParams.get('genre')
     const tabs = [
@@ -244,3 +246,6 @@ const Tabs = () => {
 
 export default Tabs
 ```
+
+## 🚩 Let's fetch the data on the homepage, in `app/page.jsx`.
+
