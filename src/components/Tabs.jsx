@@ -14,8 +14,8 @@ const Tabs = () => {
             url: "popular"
         },
         {
-            name: "Latest",
-            url: "latest"
+            name: "Top Rated",
+            url: "top_rated"
         },
         {
             name: "Upcoming",
