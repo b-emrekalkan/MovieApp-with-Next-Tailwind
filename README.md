@@ -231,6 +231,10 @@ const Tabs = () => {
         {
             name: "Upcoming",
             url: "upcoming"
+        },
+        {
+            name: "Now Playing",
+            url: "now_playing"
         }
     ]
     return (
@@ -282,7 +286,7 @@ export default Page
 
 ```
 
-## ‼️ Edit `next.config.js` file when `RunTimeError` occur about images
+## ❗ Edit `next.config.js` file when `RunTimeError` occur about images
 
 ```javascript
 //** @type {import('next').NextConfig} */

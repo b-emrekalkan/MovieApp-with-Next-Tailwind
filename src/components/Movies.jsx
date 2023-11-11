@@ -1,11 +1,13 @@
 "use client"
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 const Movies = ({ dt }) => {
+    const router = useRouter()
     console.log(dt);
     return (
-        <div className='w-[450px] relative cursor-pointer'>
+        <div onClick={() => router.push(`/movie/${dt?.id}`)} className='w-[450px] relative cursor-pointer'>
             {/* 👇 We get Runtime Error in this section. To solve this, we need to edit the next.config.js file. */}
             <Image width={450} height={300} src={`https://image.tmdb.org/t/p/original/${dt?.backdrop_path || dt?.poster_path}`} />
             <div className='absolute bottom-0 p-2 m-1 w-full h-full flex flex-col justify-end opacity-0 hover:opacity-80 transition-opacity '>
